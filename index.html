@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAKESOFSMTH | Portfolio</title>
+    <style>
+        /* --- RESET & BASICS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #050505;
+            color: #f0f0f0;
+            font-family: 'Courier New', Courier, monospace; /* Keeping it raw/industrial */
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+        
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; letter-spacing: -1px; }
+        .highlight { color: #888; }
+        
+        /* --- LAYOUT --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 80px 0; border-bottom: 1px solid #222; }
+        
+        /* --- HEADER --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 0; border-bottom: 1px solid #333;
+        }
+        .logo { font-weight: bold; font-size: 1.2rem; letter-spacing: 2px; }
+        nav ul { display: flex; gap: 30px; }
+        nav a:hover { color: #fff; text-decoration: underline; }
+
+        /* --- HERO SECTION --- */
+        .hero { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .hero h1 { font-size: 4rem; line-height: 1; margin-bottom: 20px; }
+        .hero p { font-size: 1.5rem; color: #888; max-width: 600px; }
+        .tagline { margin-top: 40px; border: 1px solid #f0f0f0; display: inline-block; padding: 10px 20px; font-weight: bold; }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
+        .skill-card { border: 1px solid #333; padding: 30px; transition: 0.3s; }
+        .skill-card:hover { background: #111; border-color: #fff; }
+        .skill-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+
+        /* --- EXPERIENCE SECTION --- */
+        .exp-item { display: flex; flex-direction: column; margin-bottom: 50px; }
+        .exp-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed #444; padding-bottom: 10px; margin-bottom: 15px; }
+        .exp-title { font-size: 1.5rem; font-weight: bold; }
+        .exp-role { color: #888; }
+        .stats { display: flex; gap: 20px; margin-top: 15px; }
+        .stat-box { background: #1a1a1a; padding: 5px 15px; font-size: 0.9rem; border-radius: 4px; }
+
+        /* --- WORK / GALLERY --- */
+        .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .gallery-item { 
+            background: #111; height: 300px; display: flex; align-items: center; justify-content: center; 
+            border: 1px solid #333; position: relative; overflow: hidden;
+        }
+        .gallery-item span { font-size: 2rem; opacity: 0.2; font-weight: bold; text-align: center; }
+        /* Placeholder for images */
+        .gallery-item:hover { border-color: #fff; }
+
+        /* --- LEADERSHIP --- */
+        .leadership-flex { display: flex; gap: 40px; flex-wrap: wrap; }
+        .team-box { flex: 1; border: 1px solid #444; padding: 30px; }
+        .big-num { font-size: 3rem; font-weight: bold; display: block; margin-bottom: 10px; }
+
+        /* --- CONTACT --- */
+        .contact h2 { font-size: 3rem; margin-bottom: 30px; }
+        .contact-links a { font-size: 1.5rem; display: block; margin-bottom: 10px; color: #888; }
+        .contact-links a:hover { color: #fff; padding-left: 10px; }
+
+        /* --- FOOTER --- */
+        footer { padding: 40px 0; text-align: center; color: #444; font-size: 0.8rem; }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .gallery { grid-template-columns: 1fr; }
+            header { flex-direction: column; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">FLAKESOFSMTH</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>I DON'T WAIT FOR<br><span class="highlight">PERMISSION.</span></h1>
+            <p>I build, lead, and experiment. While others figure it out, I'm already shipping.</p>
+            <div>
+                <a href="#contact" class="tagline">WHO IS THIS GUY?</a>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2 class="highlight">What I'm Good At</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Community</h3>
+                    <p>Management, Moderation & Public Relations.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Product</h3>
+                    <p>Product Design, Hardware Ideation & Thinking.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Leadership</h3>
+                    <p>Team Collaboration & Narrative Control.</p>
+                </div>
+                <div class="skill-card">
+                    <h3>Adaptability</h3>
+                    <p>I learn by doing. I handle pressure without folding.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <br>
+            
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">ZETA HS</span>
+                    <span class="exp-role">Founder & Owner</span>
+                </div>
+                <p>A Discord server based on Home Screen customization. Built from the ground up.</p>
+                <div class="stats">
+                    <span class="stat-box">560+ Active Members</span>
+                    <span class="stat-box">Community Building</span>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">#ROLLITBACK Movement</span>
+                    <span class="exp-role">Campaign Lead</span>
+                </div>
+                <p>Led a community movement against bloatware on Nothing OS. Learned real-world PR dynamics and narrative control.</p>
+                <div class="stats">
+                    <span class="stat-box">600+ Signees</span>
+                    <span class="stat-box">1 Media Mention</span>
+                </div>
+            </div>
+
+            <div class="exp-item">
+                <div class="exp-header">
+                    <span class="exp-title">Parker Burton's Community</span>
+                    <span class="exp-role">Moderator</span>
+                </div>
+                <p>Moderating for "The Android Guy." Handling large-scale user engagement.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Teams I Lead</h2>
+            <br>
+            <div class="leadership-flex">
+                <div class="team-box">
+                    <span class="big-num">10</span>
+                    <p>Members in my <strong>Hardware Design</strong> team.</p>
+                </div>
+                <div class="team-box">
+                    <span class="big-num">03</span>
+                    <p>Members in my <strong>Poster & Ad</strong> team.</p>
+                </div>
+            </div>
+         </section>
+
+        <section id="work">
+            <h2>Selected Works</h2>
+            <p class="highlight" style="margin-bottom: 20px;">Designs & Concepts</p>
+            <div class="gallery">
+                <div class="gallery-item"><span>NOTHING HEADPHONE (1) POSTER</span></div>
+                <div class="gallery-item"><span>REDMAGIC "BEAST"</span></div>
+                <div class="gallery-item"><span>THE OG iPHONE 6S</span></div>
+                <div class="gallery-item"><span>FAKE PLANT CONCEPT</span></div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <h2>GET IN TOUCH</h2>
+            <div class="contact-links">
+                <a href="mailto:flakesofsmth@gmail.com">flakesofsmth@gmail.com</a>
+                <a href="#">Discord: @flakesofsmth</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>DESIGNED BY FLAKESOFSMTH | 2025</p>
+        </footer>
+    </div>
+
+</body>
+</html>
