@@ -4,37 +4,373 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLAKESOFSMTH | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* --- RESET & BASICS --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: #050505;
-            color: #f0f0f0;
-            font-family: 'Courier New', Courier, monospace;
-            line-height: 1.6;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e5e5e5;
+            --accent-color: #ffffff;
+            --secondary-bg: #1a1a1a;
         }
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 { font-family: Helvetica, Arial, sans-serif; text-transform: uppercase; letter-spacing: -1px; }
-        .highlight { color: #888; }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            cursor: crosshair; /* Stylistic choice for a tech feel */
+        }
 
-        /* --- LAYOUT --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 80px 0; border-bottom: 1px solid #222; }
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
 
-        /* --- ANIMATIONS --- */
-        .reveal {
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Utility classes for animations and styling */
+        .text-stroke {
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+            color: transparent;
+            transition: 0.3s ease;
+        }
+        .text-stroke:hover {
+            -webkit-text-stroke: 1px white;
+            color: white;
+        }
+
+        /* Hero Animation */
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
             opacity: 0;
             transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.2, 0.6, 0.2, 1);
         }
-        .reveal.active {
-            opacity: 1;
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* Navigation State */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Grid Hover Effects */
+        .card {
+            background-color: var(--secondary-bg);
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            background-color: #1f1f1f;
+            border-color: #444;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-white selection:text-black">
+
+    <!-- Background Noise/Texture Overlay -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] z-0"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 backdrop-blur-md bg-[#0a0a0a]/80 border-b border-[#1a1a1a]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-xl font-bold tracking-tighter hover:text-white transition-colors text-stroke" style="text-stroke: 1px white; color: white;">
+                FLAKESOFSMTH
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-10 text-sm tracking-widest uppercase">
+                <a href="#about" class="nav-link text-gray-400 hover:text-white transition-colors">About</a>
+                <a href="#experience" class="nav-link text-gray-400 hover:text-white transition-colors">Experience</a>
+                <a href="#skills" class="nav-link text-gray-400 hover:text-white transition-colors">Skills</a>
+                <a href="#designs" class="nav-link text-gray-400 hover:text-white transition-colors">Designs</a>
+                <a href="#contact" class="nav-link text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none z-50 relative">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-[#0a0a0a] flex flex-col items-center justify-center gap-8 transform translate-x-full md:hidden">
+            <a href="#about" class="text-2xl font-medium mobile-link">About</a>
+            <a href="#experience" class="text-2xl font-medium mobile-link">Experience</a>
+            <a href="#skills" class="text-2xl font-medium mobile-link">Skills</a>
+            <a href="#designs" class="text-2xl font-medium mobile-link">Designs</a>
+            <a href="#contact" class="text-2xl font-medium mobile-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative z-10">
+        
+        <!-- Hero Section -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center px-6 lg:px-12 max-w-7xl mx-auto pt-20">
+            <div class="max-w-4xl">
+                <p class="text-gray-400 tracking-widest uppercase mb-4 fade-in-up delay-1">Student • Community Manager • Product Designer</p>
+                <h1 class="text-6xl lg:text-8xl font-bold leading-[1.1] mb-6 fade-in-up delay-2">
+                    I don't wait for <br> permission. <br>
+                    <span class="text-stroke">I learn by doing.</span>
+                </h1>
+                <p class="text-xl text-gray-400 max-w-2xl leading-relaxed fade-in-up delay-3 mb-10">
+                    While most people my age are still figuring things out, I’ve already managed large online communities, worked on multiple AI projects, and collaborated with teams on product and hardware ideas.
+                </p>
+                <div class="flex gap-4 fade-in-up delay-4">
+                    <a href="#about" class="px-8 py-4 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors">
+                        Know More
+                    </a>
+                    <a href="#contact" class="px-8 py-4 border border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Skills Section (Combined from Ref) -->
+        <section id="about" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+                <!-- Text Block -->
+                <div class="space-y-6">
+                    <h2 class="text-4xl lg:text-5xl font-bold mb-8">Who is this guy?</h2>
+                    <p class="text-gray-400 leading-relaxed text-lg">
+                        I’m a student who builds, leads, and experiments. I’m not here to follow trends; I’m here to shape them.
+                    </p>
+                    <div class="pt-4">
+                        <h3 class="text-2xl font-bold mb-4">What I am good at:</h3>
+                        <ul class="space-y-2 text-gray-300">
+                            <li class="flex items-center gap-2"><span class="w-2 h-2 bg-white"></span> Community Management & Moderation</li>
+                            <li class="flex items-center gap-2"><span class="w-2 h-2 bg-white"></span> Public Relations & User Engagement</li>
+                            <li class="flex items-center gap-2"><span class="w-2 h-2 bg-white"></span> Product Design</li>
+                            <li class="flex items-center gap-2"><span class="w-2 h-2 bg-white"></span> Team Collaboration & Leadership</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Skills Visuals (Grid) -->
+                <div id="skills" class="grid grid-cols-2 gap-4">
+                    <div class="card p-6 h-48 flex flex-col justify-between">
+                        <div class="text-4xl font-bold">Zeta HS</div>
+                        <div class="text-sm text-gray-500">Founder & Owner</div>
+                    </div>
+                    <div class="card p-6 h-48 flex flex-col justify-between border-l-0">
+                        <div class="text-4xl font-bold">Green Goblins</div>
+                        <div class="text-sm text-gray-500">Moderator</div>
+                    </div>
+                    <div class="card p-6 h-48 col-span-2 flex flex-col justify-between">
+                        <div class="text-3xl font-bold">#ROLLITBACK NOTHING</div>
+                        <div class="text-sm text-gray-500">Movement Leader • 600+ Signees</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-24 bg-[#0d0d0d] border-y border-[#1a1a1a]">
+            <div class="px-6 lg:px-12 max-w-7xl mx-auto">
+                <h2 class="text-5xl font-bold mb-16">Experience & Leadership</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Experience Card 1 -->
+                    <div class="card p-8 group">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-bold tracking-widest uppercase bg-white text-black px-2 py-1">Founder</span>
+                            <svg class="w-5 h-5 transform group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Zeta HS</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            A Discord server based on HomeScreen customisation with 560+ active members.
+                        </p>
+                    </div>
+
+                    <!-- Experience Card 2 -->
+                    <div class="card p-8 group">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-bold tracking-widest uppercase bg-white text-black px-2 py-1">Moderator</span>
+                            <svg class="w-5 h-5 transform group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">Green Goblins</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Moderator in the widely known "Parker Burton" (Youtuber) server.
+                        </p>
+                    </div>
+
+                    <!-- Experience Card 3 -->
+                    <div class="card p-8 group">
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-xs font-bold tracking-widest uppercase bg-white text-black px-2 py-1">Movement</span>
+                            <svg class="w-5 h-5 transform group-hover:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2">#ROLLITBACK NOTHING</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                            Gathered 600+ signees. Handled PR dynamics, backlash, and narrative control.
+                        </p>
+                    </div>
+
+                    <!-- Experience Card 4 (Team Leadership) -->
+                    <div class="card p-8 col-span-1 md:col-span-2 lg:col-span-3 border-t-4 border-white">
+                        <div class="flex flex-col md:flex-row justify-between md:items-center gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold mb-2">Leading 2 Teams</h3>
+                                <p class="text-gray-400 text-sm">
+                                    • Team 1 (10 members): Product Hardware Design<br>
+                                    • Team 2 (3 members): Posters & Advertisements
+                                </p>
+                            </div>
+                            <div class="text-sm font-bold tracking-widest uppercase text-gray-500">
+                                @zeta.designers on insta!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Designs Section -->
+        <section id="designs" class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+            <h2 class="text-5xl font-bold mb-12">Some of my Designs</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Placeholder for Designs - Using distinct blocks to represent the reference -->
+                <div class="aspect-square bg-gray-900 border border-gray-800 flex items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                    <div class="relative z-10 text-center">
+                        <p class="text-lg font-bold">POSTER 01</p>
+                        <p class="text-xs text-gray-400">Nothing Headphone</p>
+                    </div>
+                    <div class="absolute inset-0 bg-white/10 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                </div>
+                <div class="aspect-square bg-gray-900 border border-gray-800 flex items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                    <div class="relative z-10 text-center">
+                        <p class="text-lg font-bold">CONCEPT 02</p>
+                        <p class="text-xs text-gray-400">Product UI</p>
+                    </div>
+                    <div class="absolute inset-0 bg-white/10 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                </div>
+                <div class="aspect-square bg-gray-900 border border-gray-800 flex items-center justify-center relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+                    <div class="relative z-10 text-center">
+                        <p class="text-lg font-bold">BRAND 03</p>
+                        <p class="text-xs text-gray-400">Visual Identity</p>
+                    </div>
+                    <div class="absolute inset-0 bg-white/10 transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Sets Me Apart -->
+        <section class="py-24 px-6 lg:px-12 max-w-7xl mx-auto">
+            <div class="border border-white p-12 lg:p-20 text-center">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-12 max-w-2xl mx-auto leading-tight">
+                    What really sets me apart is:
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
+                    <div class="p-4">
+                        <div class="text-5xl font-bold text-stroke mb-2">01</div>
+                        <p class="text-sm tracking-wide text-gray-300">Proven real world experiences</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-5xl font-bold text-stroke mb-2">02</div>
+                        <p class="text-sm tracking-wide text-gray-300">Handling pressure without folding</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="text-5xl font-bold text-stroke mb-2">03</div>
+                        <p class="text-sm tracking-wide text-gray-300">Fast learning & adaptation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-32 bg-[#0d0d0d] relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,.05)_25%,rgba(255,255,255,.05)_50%,transparent_50%,transparent_75%,rgba(255,255,255,.05)_75%)] bg-[length:40px_40px]"></div>
+            
+            <div class="px-6 lg:px-12 max-w-4xl mx-auto text-center relative z-10">
+                <h2 class="text-6xl font-bold mb-8">Get in touch.</h2>
+                <p class="text-xl text-gray-400 mb-12">I’d love working with you!</p>
+                
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="mailto:flakesofsmth@gmail.com" class="w-full md:w-auto px-10 py-5 bg-white text-black font-bold uppercase tracking-widest hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 group">
+                        <span>Email</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                    <a href="#" onclick="alert('Discord ID: @flakesofsmth')" class="w-full md:w-auto px-10 py-5 border border-gray-600 text-white font-bold uppercase tracking-widest hover:border-white transition-colors flex items-center justify-center gap-2 group">
+                        <span>Discord</span>
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+
+                <div class="mt-24 pt-8 border-t border-[#222] text-gray-600 text-sm">
+                    © 2025 FLAKESOFSMTH. Thank you for reading.
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                mobileMenu.classList.add('translate-x-0');
+                opacity: 1;
             transform: translateY(0);
         }
 
